@@ -4,8 +4,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CAPP</title>
+<title>CAPP — mes projets</title>
 <meta name="color-scheme" content="dark light">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2310121a'/%3E%3Ccircle cx='16' cy='16' r='11.5' fill='none' stroke='%23ece9e1' stroke-width='2'/%3E%3Cpath d='M16 6.5 19.4 16 12.6 16z' fill='%233987e5'/%3E%3Cpath d='M12.6 16 19.4 16 16 25.5z' fill='%23ece9e1'/%3E%3Ccircle cx='16' cy='16' r='1.6' fill='%2310121a'/%3E%3C/svg%3E">
+<meta name="application-name" content="CAPP">
+<meta name="apple-mobile-web-app-title" content="CAPP">
+<meta name="theme-color" content="#10121a">
 <script>
 /* applique le thème avant le premier rendu pour éviter un flash */
 try{const s=JSON.parse(localStorage.getItem('cap.v1')||'{}').settings||{};const m=s.theme||'auto';
@@ -356,7 +360,7 @@ body.tm #toast{bottom:104px}
 <script>
 'use strict';
 /* =====================================================================
-   Cap — gestion de projets perso. Tout est stocké dans le navigateur.
+   CAPP — gestion de projets perso. Tout est stocké dans le navigateur.
    ===================================================================== */
 const KEY='cap.v1',UIKEY='cap.ui';
 const CATS={Code:'--c-code',Musique:'--c-musique',Pro:'--c-pro',Études:'--c-etudes',Perso:'--c-perso',Autre:'--c-autre'};
@@ -538,7 +542,7 @@ function render(){
 function renderSide(){
   const act=active().length,max=S.settings.max,n=Math.max(act,max),st=streak(),rest=focusTasks().length,cu=window.capCloud&&window.capCloud.user;
   $('#side').innerHTML=`
-  <div class="logo">${LOGO}Cap</div>
+  <div class="logo">${LOGO}CAPP</div>
   <button class="sbtn" data-act="pal">${ic('search',16)}<span>Rechercher</span><kbd>Ctrl K</kbd></button>
   <nav aria-label="Navigation">${VIEWS.map(([id,l,i])=>`<button data-act="tab" data-v="${id}" ${UI.view===id?'aria-current="page"':''}>${ic(i,20)}<span>${l}</span>${id==='dash'&&rest?`<span class="n" aria-label="${rest} à faire">${rest}</span>`:''}</button>`).join('')}</nav>
   <div class="side-sp"></div>
@@ -548,7 +552,7 @@ function renderSide(){
   <div class="sfoot"><button class="ib" data-act="theme" title="Changer de thème" aria-label="Changer de thème">${ic('moon')}</button><button class="ib" data-act="acc" title="${cu?'Compte : '+esc(cu):'Se connecter'}" aria-label="Compte"${cu?' style="color:var(--ok)"':''}>${ic('user')}</button><button class="ib" data-act="settings" title="Réglages" aria-label="Réglages">${ic('sliders')}</button></div>`;
 }
 function emptyState(){
-  return `<div class="empty"><h2>Pose tout ce que tu as en tête ici.</h2><p>Crée un projet, découpe-le en petites tâches, et Cap te montre chaque matin quoi faire en premier et où tu en es vraiment.</p>
+  return `<div class="empty"><h2>Pose tout ce que tu as en tête ici.</h2><p>Crée un projet, découpe-le en petites tâches, et CAPP te montre chaque matin quoi faire en premier et où tu en es vraiment.</p>
   <div class="btns"><button class="btn pri" data-act="new">${ic('plus')}Créer mon premier projet</button><button class="btn" data-act="example">Voir avec un exemple</button></div></div>`;
 }
  
@@ -827,7 +831,7 @@ $('#dpal').addEventListener('click',e=>{const li=e.target.closest('li[data-i]');
 /* ---------- réglages et données ---------- */
 function exportData(){
   const url=URL.createObjectURL(new Blob([JSON.stringify(S,null,2)],{type:'application/json'}));
-  const a=document.createElement('a');a.href=url;a.download=`cap-sauvegarde-${todayS()}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  const a=document.createElement('a');a.href=url;a.download=`capp-sauvegarde-${todayS()}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
   toast('Sauvegarde exportée.');
 }
 function cycleTheme(){S.settings.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';save();render()}
@@ -841,7 +845,7 @@ function openSettings(){
       <label>Capacité par jour, en heures<input type="number" id="scap" min="1" max="16" step="0.5" value="${s.cap/60}"></label>
       <label>Durée d’une session de focus, en minutes<input type="number" id="sfocus" min="5" max="120" step="5" value="${s.focusMin}"></label></div>
     <label class="row"><input type="checkbox" class="chk" id="swk" ${s.weekend?'checked':''}>Inclure le week-end dans la répartition automatique</label>
-    <p class="hint">La limite de projets t’aide à te concentrer : Cap te le signale dès que tu la dépasses. La capacité sert au planning pour repérer les jours trop chargés.</p>
+    <p class="hint">La limite de projets t’aide à te concentrer : CAPP te le signale dès que tu la dépasses. La capacité sert au planning pour repérer les jours trop chargés.</p>
     <div><div class="sh"><h2 style="font-size:18px">Données</h2></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" data-act="export">Exporter une sauvegarde</button><button class="btn" data-act="import">Importer…</button><button class="btn" data-act="example">Ajouter un exemple</button><button class="btn dng" data-act="reset">Tout effacer</button></div>
     <p class="hint" style="margin-top:10px">Sans compte, tout reste dans ce navigateur. Exporte une sauvegarde de temps en temps, surtout avant de vider tes données de navigation.</p>
     <input type="file" id="sfile" accept="application/json" hidden></div>
@@ -864,7 +868,7 @@ $('#dset').addEventListener('change',e=>{
   const r=new FileReader();
   r.onload=()=>{try{const j=JSON.parse(r.result);if(!Array.isArray(j.projects))throw 0;
     if(confirm('Remplacer toutes tes données actuelles par ce fichier ?')){S=normalize(j);save();$('#dset').close()}
-  }catch(_){toast('Fichier invalide : ce n’est pas une sauvegarde Cap.')}};
+  }catch(_){toast('Fichier invalide : ce n’est pas une sauvegarde CAPP.')}};
   r.readAsText(e.target.files[0]);
 });
 function loadExample(){
@@ -925,7 +929,7 @@ function tmDraw(force){
       (TM.over?`<button data-act="tmmore">Encore ${S.settings.focusMin||25} min</button><button data-act="tmdone">${ic('check',14)}&nbsp;Fait</button><button data-act="tmstop" aria-label="Enregistrer et fermer">${ic('x',14)}</button>`
                :`<button data-act="tmpause">${TM.paused?'Reprendre':'Pause'}</button><button data-act="tmstop">Arrêter</button>`);
   }else if(!TM.over)$('#timer .tt').textContent=clock;
-  document.title=TM.over?'Session terminée · Cap':`${clock} · ${t.t}`;
+  document.title=TM.over?'Session terminée · CAPP':`${clock} · ${t.t}`;
   if(!tmInt)tmInt=setInterval(tmTick,1000);
 }
  
@@ -1025,7 +1029,7 @@ function drawAccount(){
     <div class="dhead"><h2>Compte</h2><button class="ib" data-close aria-label="Fermer">${ic('x')}</button></div>
     ${u?`<p style="margin:0">Connecté avec <b>${esc(u)}</b>.</p><p class="hint" role="status">${esc(st)}</p>
       <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" data-act="csync">Synchroniser maintenant</button><button class="btn" data-act="aout">Se déconnecter</button></div>`
-    :`<p class="hint">Connecte-toi pour retrouver tes projets sur tous tes appareils. Cap t’envoie un lien par email : pas de mot de passe à retenir.</p>
+    :`<p class="hint">Connecte-toi pour retrouver tes projets sur tous tes appareils. CAPP t’envoie un lien par email : pas de mot de passe à retenir.</p>
       <label>Adresse email<input type="text" inputmode="email" autocomplete="email" id="aemail" value="${esc(val)}"></label>
       ${c.sentTo?`<p class="hint" role="status">Lien envoyé à ${esc(c.sentTo)}. Ouvre l’email et clique sur le lien pour te connecter.</p>`:''}
       <div><button class="btn pri" data-act="alink">${c.sentTo?'Renvoyer le lien':'Envoyer le lien'}</button></div>`}
@@ -1050,7 +1054,7 @@ if(TM)tmDraw(true);
 </script>
 <script type="module">
 /* Firebase : connexion par lien email + synchro Firestore (document users/{uid}).
-   Si le chargement échoue (hors ligne, bloqué), Cap continue de fonctionner en local. */
+   Si le chargement échoue (hors ligne, bloqué), CAPP continue de fonctionner en local. */
 const firebaseConfig={
   apiKey:"AIzaSyCxW8Fek0atNdTVQYFcEOjJ_ZUW1YOENtg",
   authDomain:"capp-ab615.firebaseapp.com",
@@ -1067,7 +1071,7 @@ const ws=o=>{try{localStorage.setItem(SYNC,JSON.stringify(o))}catch(e){}};
 const errText=e=>{const k=(e&&e.code)||'';return({
   'auth/invalid-email':'Adresse email invalide.',
   'auth/unauthorized-continue-uri':'Ce domaine n’est pas autorisé : ajoute-le dans Firebase, Authentication, Paramètres, Domaines autorisés.',
-  'auth/invalid-continue-uri':'Ouvre Cap depuis une adresse http ou https (hébergement ou localhost), pas depuis un fichier local.',
+  'auth/invalid-continue-uri':'Ouvre CAPP depuis une adresse http ou https (hébergement ou localhost), pas depuis un fichier local.',
   'auth/operation-not-allowed':'La connexion par lien email n’est pas activée dans Firebase (Authentication, Méthode de connexion).',
   'auth/too-many-requests':'Trop d’essais. Réessaie dans quelques minutes.',
   'auth/network-request-failed':'Pas de connexion internet.',
